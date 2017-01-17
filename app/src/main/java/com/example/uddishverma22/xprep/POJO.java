@@ -1,5 +1,6 @@
 package com.example.uddishverma22.xprep;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -8,42 +9,46 @@ import java.util.ArrayList;
  * Created by Naman Gupta on 17-Jan-17.
  */
 
-public class POJO
-{
+public class POJO {
 
-    @SerializedName("leg")
+    @SerializedName("legs")
+    @Expose
     private ArrayList<Legs> leg;
 
-    public ArrayList<Legs> getLegsData()
-    {
+    public ArrayList<Legs> getLegsData() {
         return leg;
-     }
+    }
 
 
-    public class Legs
-    {
+    public static class Legs {
+
         @SerializedName("legId")
-       String legId;
+        @Expose
+        String legId;
 
         @SerializedName("travelDuration")
-       String travelDuration;
+        @Expose
+        String travelDuration;
 
         @SerializedName("baggageFeesUrl")
+        @Expose
         String baggageFeesUrl;
 
-        @SerializedName("segments")
-        String segments;
+//        @SerializedName("segments")
+//        @Expose
+//        String segments;
 
-        @SerializedName("freeCancellationBoy")
-        String freeCancellationBoy;
+        @SerializedName("freeCancellationBy")
+        @Expose
+        String freeCancellationBy;
 
-        public String getFreeCancellationBoy() {
-            return freeCancellationBoy;
+        public String getFreeCancellationBy() {
+            return freeCancellationBy;
         }
 
-        public String getSegments() {
-            return segments;
-        }
+//        public String getSegments() {
+//            return segments;
+//        }
 
         public String getBaggageFeesUrl() {
             return baggageFeesUrl;
@@ -56,19 +61,6 @@ public class POJO
         public String getLegId() {
             return legId;
         }
-
-
-
-
-        public Legs()
-        {
-            legId="";
-            travelDuration="";
-            baggageFeesUrl="";
-            segments="";
-            freeCancellationBoy="";
-        }
-
 
 
     }
