@@ -12,6 +12,6 @@ import retrofit2.http.GET;
 public interface LegsAPIService
 {
     @GET("/x/mflights/search?departureAirport=LAX&arrivalAirport=ORD&departureDate=2017-04-22&childTravelerAge=2&apikey=TB1BMpIIHsb6eUGYKLdLpCXz4gEJoFSP")
-    Call<LegsPOJO> getUserRoles();
+    Call<POJO> getLegsData();
 
 }
