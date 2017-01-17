@@ -3,6 +3,7 @@ package com.example.uddishverma22.xprep;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final String TAG = "JsonTest";
+
+    private Fragment1 fragment1 = new Fragment1();
+    private Fragment2 fragment2 = new Fragment2();
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -52,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**************************************************************/
     String url = "http://terminal2.expedia.com/x/";
+    FragmentManager manager;
 
     /***************************************************************/
 
@@ -99,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<POJO.Legs> arrayList = response.body().getLegsData();
                 Log.d(TAG, "HELLO");
                 if (arrayList != null) {
-
                     Log.d(TAG, "Got Response ");
-                    Log.i(TAG, arrayList.get(1).getLegId());
+                    Log.d(TAG, arrayList.get(1).getLegId());
                 }
+                fragment1.setLegs(arrayList);
 
             }
 
@@ -110,52 +115,9 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<POJO> call, Throwable throwable) {
                 Log.d(TAG, "failed");
             }
-
         });
 
-
-        /****************************************************************************************/
-
-
     }
-
-
-    /**********************************************************************/
-
-   /* void getDataRetrofit()
-    {
-       *//* Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-*//*
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .build();
-
-        LegsAPIService service = retrofit.create(LegsAPIService.class);
-
-        Call<LegsPOJO> call=service.getLegsData();
-
-        call.enqueue(new Callback<LegsPOJO>() {
-            @Override
-            public void onResponse(Call<LegsPOJO> call, Response<LegsPOJO> response) {
-
-            }
-
-            @Override
-            public void onFailure(Call<LegsPOJO> call, Throwable throwable) {
-
-            }
-        });
-
-
-    }
-
-
-*/
-
 
     /**************************************************************************/
 
@@ -230,10 +192,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:
-                    return new Fragment1();
+                case 0: {
+//                    Bundle b = new Bundle();
+//                    b.putSerializable("data", arrayList);
+//                    Log.d(TAG, "getItem: " + arrayList.get(1).getLegId());
+//                    frag1.setArguments(b);
+                    return fragment1;
+                }
                 case 1:
-                    return new Fragment2();
+                    return fragment2;
                 default:
                     return null;
             }
@@ -258,3 +225,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
