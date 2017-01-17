@@ -12,7 +12,6 @@ public class LegsPOJO
     String segments;
     String freeCancellationBy;
 
-
     public String getLegId() {
         return legId;
     }

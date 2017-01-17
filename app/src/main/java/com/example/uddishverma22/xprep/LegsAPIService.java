@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by Naman Gupta on 17-Jan-17.
@@ -11,7 +12,11 @@ import retrofit2.http.GET;
 
 public interface LegsAPIService
 {
-    @GET("/x/mflights/search?departureAirport=LAX&arrivalAirport=ORD&departureDate=2017-04-22&childTravelerAge=2&apikey=TB1BMpIIHsb6eUGYKLdLpCXz4gEJoFSP")
-    Call<POJO> getLegsData();
+    @GET("mflights/search")
+    Call<POJO> getLegsData(@Query("departureAirport") String da
+                          ,@Query("arrivalAirport") String aA,
+                           @Query("departureDate") String dD,
+                           @Query("childTravelerAge") String cTA,
+                           @Query("apikey") String apiKey);
 
 }

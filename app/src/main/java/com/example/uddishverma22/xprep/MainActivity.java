@@ -23,19 +23,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit.GsonConverterFactory;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
 
 
-
-     public static final String TAG="JsonTest";
+    public static final String TAG = "JsonTest";
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -52,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
 
-
     /**************************************************************/
-            String url="http://terminal2.expedia.com/";
+    String url = "http://terminal2.expedia.com/x/";
+
     /***************************************************************/
 
 
@@ -82,44 +80,44 @@ public class MainActivity extends AppCompatActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
-                /*.addConverterFactory(GsonConverterFactory.create())*/
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        Log.d(TAG, "HELLO");
 
         LegsAPIService service = retrofit.create(LegsAPIService.class);
 
         // Asynchronous Call
-         Call<POJO> call = service.getLegsData();
+        Call<POJO> call = service.getLegsData("LAX",
+                "ORD",
+                "2017-04-22",
+                "2",
+                "TB1BMpIIHsb6eUGYKLdLpCXz4gEJoFSP");
+
         call.enqueue(new Callback<POJO>() {
             @Override
             public void onResponse(Call<POJO> call, Response<POJO> response) {
                 ArrayList<POJO.Legs> arrayList = response.body().getLegsData();
+                Log.d(TAG, "HELLO");
                 if (arrayList != null) {
-                    Log.i(TAG, arrayList.get(0).getLegId());
+
+                    Log.d(TAG, "Got Response ");
+                    Log.i(TAG, arrayList.get(1).getLegId());
                 }
 
             }
 
             @Override
             public void onFailure(Call<POJO> call, Throwable throwable) {
-
+                Log.d(TAG, "failed");
             }
 
         });
 
 
-
-
         /****************************************************************************************/
 
 
-
-
     }
-
-
-
-
-
 
 
     /**********************************************************************/
@@ -157,14 +155,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 */
-
-
-
-
-
-
-
-
 
 
     /**************************************************************************/
@@ -239,12 +229,14 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-           switch (position){
-               case 0 : return new Fragment1();
-               case 1 : return new Fragment2();
-               default:
-                   return null;
-           }
+            switch (position) {
+                case 0:
+                    return new Fragment1();
+                case 1:
+                    return new Fragment2();
+                default:
+                    return null;
+            }
         }
 
         @Override
